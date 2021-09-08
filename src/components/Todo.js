@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import '../App.css';
 
 const Todo = () => {
-  const [input, setInput] = useState('');
+  const [activity, setactivity] = useState('');
+  const [timeOfActivity, setTimeOfActivity] = useState('');
+  const [remainder, setRemainder] = useState(false);
   const [elements, setElements] = useState([]);
   const [toggleAddAndEdit, setToggleAddAndEdit] = useState(true);
   const [updateItem, setUpdateItem] = useState('null'); // useStates()
@@ -10,27 +13,43 @@ const Todo = () => {
   //Adding items
 
   const addElements = () => {
-    if (!input) {
-      alert('please enter a valid activity!');
-    } else if (input && !toggleAddAndEdit) {
+    if (!activity || !timeOfActivity) {
+      alert('please enter a valid activity or time!');
+    } else if (activity && timeOfActivity && !toggleAddAndEdit) {
       setElements(
         elements.map((elem) => {
-          if (elem.id === updateItem) return { ...elem, name: input };
+          if (elem.id === updateItem)
+            return {
+              ...elem,
+              name: activity,
+              time: timeOfActivity,
+              remainder: remainder,
+            };
           return elem;
         })
       );
+      console.log(elements);
       setToggleAddAndEdit(true);
 
-      setInput('');
+      setactivity('');
+
+      setTimeOfActivity('');
+
+      setRemainder(false);
 
       setUpdateItem(null);
     } else {
       const allInputData = {
         id: new Date().getTime().toString(),
-        name: input,
+        name: activity,
+        time: timeOfActivity,
+        remainder: remainder,
       };
+      console.log(allInputData);
       setElements([...elements, allInputData]);
-      setInput('');
+      setactivity('');
+      setTimeOfActivity('');
+      setRemainder(false);
     }
   };
 
@@ -53,7 +72,11 @@ const Todo = () => {
 
     setToggleAddAndEdit(false);
 
-    setInput(itemToBeEdited.name);
+    setactivity(itemToBeEdited.name);
+
+    setTimeOfActivity(itemToBeEdited.time);
+
+    setRemainder(itemToBeEdited.remainder);
 
     setUpdateItem(id);
   };
@@ -69,9 +92,27 @@ const Todo = () => {
           <input
             type='text'
             placeholder='Add Activity'
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={activity}
+            onChange={(e) => setactivity(e.target.value)}
           />
+          <input
+            type='Number'
+            placeholder='Set time'
+            value={timeOfActivity}
+            onChange={(e) => setTimeOfActivity(e.target.value)}
+            checked
+          />
+          <div className='boxes'>
+            <input
+              type='checkbox'
+              value={remainder}
+              checked={remainder}
+              id='box-1'
+              onChange={(e) => setRemainder(e.currentTarget.checked)}
+            />
+            <label for='box-1'>Set Remainder</label>
+          </div>
+
           {toggleAddAndEdit ? (
             <button
               title='Add item'
@@ -86,7 +127,7 @@ const Todo = () => {
               onClick={addElements}
               className='btn-secondary'
             >
-              Edit
+              Save Changes
             </button>
           )}
         </div>
@@ -94,22 +135,33 @@ const Todo = () => {
         <div className='showItems'>
           {elements.map((item) => {
             return (
-              <div className='eachItem' key={item.id}>
-                <h3>{item.name}</h3>
-                <button
-                  title='Update Item'
-                  onClick={() => editItem(item.id)}
-                  className='btn btn-secondary'
-                >
-                  Update
-                </button>
-                <button
-                  title='Delete Item'
-                  onClick={() => deleteElements(item.id)}
-                  className='btn'
-                >
-                  Delete
-                </button>
+              <div
+                className={
+                  !item.remainder ? 'eachItem' : ' eachItem eachItem-remainder'
+                }
+                key={item.id}
+              >
+                <h3>
+                  Task - {item.name}{' '}
+                  <button
+                    title='Edit Item'
+                    onClick={() => editItem(item.id)}
+                    className='btn btn-block'
+                  >
+                    <FaEdit className='icon-update' />
+                  </button>
+                  <button
+                    title='Delete Item'
+                    onClick={() => deleteElements(item.id)}
+                    className='btn btn-block'
+                  >
+                    <FaTrashAlt className='icon-delete' />
+                  </button>
+                </h3>
+                <h4>Time : {item.time}</h4>
+                <h5>
+                  {item.remainder ? 'Remainder : On' : ' Remainder : Off'}
+                </h5>
               </div>
             );
           })}
