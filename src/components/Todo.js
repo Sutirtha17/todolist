@@ -2,60 +2,60 @@ import React, { useState } from 'react';
 import '../App.css';
 
 const Todo = () => {
-  const [inputData, setInputData] = useState('');
-  const [items, setItems] = useState([]);
-  const [toggleSubmit, setToggleSubmit] = useState(true);
-  const [isEditItem, setIsEditItem] = useState('null'); // useStates()
+  const [input, setInput] = useState('');
+  const [elements, setElements] = useState([]);
+  const [toggleAddAndEdit, setToggleAddAndEdit] = useState(true);
+  const [updateItem, setUpdateItem] = useState('null'); // useStates()
 
   //Adding items
 
-  const addItem = () => {
-    if (!inputData) {
+  const addElements = () => {
+    if (!input) {
       alert('please enter a valid activity!');
-    } else if (inputData && !toggleSubmit) {
-      setItems(
-        items.map((elem) => {
-          if (elem.id === isEditItem) return { ...elem, name: inputData };
+    } else if (input && !toggleAddAndEdit) {
+      setElements(
+        elements.map((elem) => {
+          if (elem.id === updateItem) return { ...elem, name: input };
           return elem;
         })
       );
-      setToggleSubmit(true);
+      setToggleAddAndEdit(true);
 
-      setInputData('');
+      setInput('');
 
-      setIsEditItem(null);
+      setUpdateItem(null);
     } else {
       const allInputData = {
         id: new Date().getTime().toString(),
-        name: inputData,
+        name: input,
       };
-      setItems([...items, allInputData]);
-      setInputData('');
+      setElements([...elements, allInputData]);
+      setInput('');
     }
   };
 
   // delete the items
 
-  const deleteItem = (id) => {
-    const updatedItems = items.filter((elem) => {
-      return elem.id !== id;
+  const deleteElements = (id) => {
+    const updatedItems = elements.filter((item) => {
+      return item.id !== id;
     });
 
-    setItems(updatedItems);
+    setElements(updatedItems);
   };
 
   // Editing Items
 
   const editItem = (id) => {
-    let newEditItem = items.find((elem) => {
-      return elem.id === id;
+    let itemToBeEdited = elements.find((item) => {
+      return item.id === id;
     });
 
-    setToggleSubmit(false);
+    setToggleAddAndEdit(false);
 
-    setInputData(newEditItem.name);
+    setInput(itemToBeEdited.name);
 
-    setIsEditItem(id);
+    setUpdateItem(id);
   };
 
   //returning
@@ -69,13 +69,13 @@ const Todo = () => {
           <input
             type='text'
             placeholder='Add Activity'
-            value={inputData}
-            onChange={(e) => setInputData(e.target.value)}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
           />
-          {toggleSubmit ? (
+          {toggleAddAndEdit ? (
             <button
               title='Add item'
-              onClick={addItem}
+              onClick={addElements}
               className='btn-secondary'
             >
               Add
@@ -83,7 +83,7 @@ const Todo = () => {
           ) : (
             <button
               title='Edit item'
-              onClick={addItem}
+              onClick={addElements}
               className='btn-secondary'
             >
               Edit
@@ -92,20 +92,20 @@ const Todo = () => {
         </div>
 
         <div className='showItems'>
-          {items.map((elem) => {
+          {elements.map((item) => {
             return (
-              <div className='eachItem' key={elem.id}>
-                <h3>{elem.name}</h3>
+              <div className='eachItem' key={item.id}>
+                <h3>{item.name}</h3>
                 <button
                   title='Update Item'
-                  onClick={() => editItem(elem.id)}
+                  onClick={() => editItem(item.id)}
                   className='btn btn-secondary'
                 >
                   Update
                 </button>
                 <button
                   title='Delete Item'
-                  onClick={() => deleteItem(elem.id)}
+                  onClick={() => deleteElements(item.id)}
                   className='btn'
                 >
                   Delete
