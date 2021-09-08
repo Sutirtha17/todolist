@@ -1,4 +1,4 @@
-# To Do List
+# To Do List ( Keeper)
 
 This project is a implementation of a basic To Do List made using React.js.
 
@@ -42,7 +42,7 @@ npm install
 npm run start
 ```
 
-### 8. Check the outputs
+### 8. Checkout the To Do List
 
 Open your Browser. Go to the address -
 
@@ -50,4 +50,4 @@ Open your Browser. Go to the address -
 http://localhost:3000/
 ```
 
-you can also check [`here`](http://localhost:8000/)
+you can also check [`here`](http://localhost:3000/)
