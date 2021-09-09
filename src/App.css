@@ -154,9 +154,9 @@ input[type='checkbox'] + label {
   font: 14px/20px 'Open Sans', Arial, sans-serif;
   color: black;
   cursor: pointer;
-  -webkit-user-select: none;
+  /* -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none; */
 }
 
 input[type='checkbox'] + label:last-child {

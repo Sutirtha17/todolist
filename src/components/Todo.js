@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import '../App.css';
+import AddItem from './AddItem';
+import ShowItem from './ShowItem';
 
 const Todo = () => {
   const [activity, setactivity] = useState('');
@@ -87,85 +88,24 @@ const Todo = () => {
     <>
       <div className='container'>
         <h1 className='header'>Keeper</h1>
-
-        <div className='addItems'>
-          <input
-            type='text'
-            placeholder='Add Activity'
-            value={activity}
-            onChange={(e) => setactivity(e.target.value)}
-          />
-          <input
-            type='Number'
-            placeholder='Set time'
-            value={timeOfActivity}
-            onChange={(e) => setTimeOfActivity(e.target.value)}
-            checked
-          />
-          <div className='boxes'>
-            <input
-              type='checkbox'
-              value={remainder}
-              checked={remainder}
-              id='box-1'
-              onChange={(e) => setRemainder(e.currentTarget.checked)}
-            />
-            <label for='box-1'>Set Remainder</label>
-          </div>
-
-          {toggleAddAndEdit ? (
-            <button
-              title='Add item'
-              onClick={addElements}
-              className='btn-secondary'
-            >
-              Add
-            </button>
-          ) : (
-            <button
-              title='Edit item'
-              onClick={addElements}
-              className='btn-secondary'
-            >
-              Save Changes
-            </button>
-          )}
-        </div>
-
-        <div className='showItems'>
-          {elements.map((item) => {
-            return (
-              <div
-                className={
-                  !item.remainder ? 'eachItem' : ' eachItem eachItem-remainder'
-                }
-                key={item.id}
-              >
-                <h3>
-                  Task - {item.name}{' '}
-                  <button
-                    title='Edit Item'
-                    onClick={() => editItem(item.id)}
-                    className='btn btn-block'
-                  >
-                    <FaEdit className='icon-update' />
-                  </button>
-                  <button
-                    title='Delete Item'
-                    onClick={() => deleteElements(item.id)}
-                    className='btn btn-block'
-                  >
-                    <FaTrashAlt className='icon-delete' />
-                  </button>
-                </h3>
-                <h4>Time : {item.time}</h4>
-                <h5>
-                  {item.remainder ? 'Remainder : On' : ' Remainder : Off'}
-                </h5>
-              </div>
-            );
-          })}
-        </div>
+        <AddItem
+          activity={activity}
+          setactivity={setactivity}
+          timeOfActivity={timeOfActivity}
+          setTimeOfActivity={setTimeOfActivity}
+          remainder={remainder}
+          setRemainder={setRemainder}
+          onChange={addElements} // important line
+          /*   onChange = {
+            passing the addElement to child component
+          } */
+          toggleAddAndEdit={toggleAddAndEdit}
+        />
+        <ShowItem
+          elements={elements}
+          deleteElements={deleteElements}
+          editItem={editItem}
+        />
       </div>
     </>
   );
