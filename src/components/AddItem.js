@@ -1,7 +1,7 @@
 import { React } from 'react';
 const AddItem = ({
   activity,
-  setactivity,
+  setActivity,
   timeOfActivity,
   setTimeOfActivity,
   remainder,
@@ -16,7 +16,7 @@ const AddItem = ({
           type='text'
           placeholder='Add Activity'
           value={activity}
-          onChange={(e) => setactivity(e.target.value)}
+          onChange={(e) => setActivity(e.target.value)}
         />
         <input
           type='Number'
@@ -33,7 +33,7 @@ const AddItem = ({
             id='box-1'
             onChange={(e) => setRemainder(e.currentTarget.checked)}
           />
-          <label for='box-1'>Set Remainder</label>
+          <label htmlFor='box-1'>Set Remainder</label>
         </div>
 
         {toggleAddAndEdit ? (

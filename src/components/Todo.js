@@ -4,7 +4,7 @@ import AddItem from './AddItem';
 import ShowItem from './ShowItem';
 
 const Todo = () => {
-  const [activity, setactivity] = useState('');
+  const [activity, setActivity] = useState('');
   const [timeOfActivity, setTimeOfActivity] = useState('');
   const [remainder, setRemainder] = useState(false);
   const [elements, setElements] = useState([]);
@@ -32,7 +32,7 @@ const Todo = () => {
       console.log(elements);
       setToggleAddAndEdit(true);
 
-      setactivity('');
+      setActivity('');
 
       setTimeOfActivity('');
 
@@ -48,7 +48,7 @@ const Todo = () => {
       };
       console.log(allInputData);
       setElements([...elements, allInputData]);
-      setactivity('');
+      setActivity('');
       setTimeOfActivity('');
       setRemainder(false);
     }
@@ -73,7 +73,7 @@ const Todo = () => {
 
     setToggleAddAndEdit(false);
 
-    setactivity(itemToBeEdited.name);
+    setActivity(itemToBeEdited.name);
 
     setTimeOfActivity(itemToBeEdited.time);
 
@@ -90,7 +90,7 @@ const Todo = () => {
         <h1 className='header'>Keeper</h1>
         <AddItem
           activity={activity}
-          setactivity={setactivity}
+          setActivity={setActivity}
           timeOfActivity={timeOfActivity}
           setTimeOfActivity={setTimeOfActivity}
           remainder={remainder}
