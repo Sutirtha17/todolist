@@ -1,6 +1,6 @@
 # To Do List ( Keeper)
 
-This project is a implementation of a basic To Do List made using React.js.
+This project is a implementation of a basic To Do List made using React.js using props. We have kept each components in a separate file.
 
 ## Installations
 
@@ -21,7 +21,7 @@ This project is a implementation of a basic To Do List made using React.js.
 ### 4. Clone this repository
 
 ```sh
-git clone https://github.com/Sutirtha17/todolist.git
+git clone -b props https://github.com/Sutirtha17/todolist.git
 ```
 
 ### 5. Go to the working directory
