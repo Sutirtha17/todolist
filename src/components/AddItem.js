@@ -1,14 +1,58 @@
-import { React } from 'react';
+import React from 'react';
 const AddItem = ({
+  tasklist,
+  setTasklist,
   activity,
   setActivity,
   timeOfActivity,
   setTimeOfActivity,
   remainder,
   setRemainder,
-  onChange,
   toggleAddAndEdit,
+  setToggleAddAndEdit,
+  updateItem,
+  setUpdateItem,
 }) => {
+  const addElements = () => {
+    if (!activity || !timeOfActivity) {
+      alert('please enter a valid activity or time!');
+    } else if (activity && timeOfActivity && !toggleAddAndEdit) {
+      setTasklist(
+        tasklist.map((elem) => {
+          if (elem.id === updateItem)
+            return {
+              ...elem,
+              name: activity,
+              time: timeOfActivity,
+              remainder: remainder,
+            };
+          return elem;
+        })
+      );
+      console.log(tasklist);
+      setToggleAddAndEdit(true);
+
+      setActivity('');
+
+      setTimeOfActivity('');
+
+      setRemainder(false);
+
+      setUpdateItem(null);
+    } else {
+      const allInputData = {
+        id: new Date().getTime().toString(),
+        name: activity,
+        time: timeOfActivity,
+        remainder: remainder,
+      };
+      console.log(allInputData);
+      setTasklist([...tasklist, allInputData]);
+      setActivity('');
+      setTimeOfActivity('');
+      setRemainder(false);
+    }
+  };
   return (
     <>
       <div className='addItems'>
@@ -39,7 +83,7 @@ const AddItem = ({
         {toggleAddAndEdit ? (
           <button
             title='Add item'
-            onClick={onChange}
+            onClick={addElements}
             /* onClick = onChange
             onClick = addElements()
              */
@@ -50,7 +94,7 @@ const AddItem = ({
         ) : (
           <button
             title='Edit item'
-            onClick={onChange}
+            onClick={addElements}
             className='btn-secondary'
           >
             Save Changes
