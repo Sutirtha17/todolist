@@ -2,25 +2,45 @@ import React from 'react';
 import EditItem from './EditItem';
 import DeleteElements from './DeleteItem';
 
-export const ShowItem = ({ elements, deleteElements, editItem }) => {
+export const ShowItem = ({
+  tasklist,
+  setTasklist,
+  setActivity,
+  setTimeOfActivity,
+  setRemainder,
+  setToggleAddAndEdit,
+  setUpdateItem,
+}) => {
   return (
     <>
       <div className='showItems'>
-        {elements.map((item) => {
+        {tasklist.map((task) => {
           return (
             <div
               className={
-                !item.remainder ? 'eachItem' : ' eachItem eachItem-remainder'
+                !task.remainder ? 'eachItem' : ' eachItem eachItem-remainder'
               }
-              key={item.id}
+              key={task.id}
             >
               <h3>
-                Task - {item.name}
-                <EditItem item={item} editItem={editItem} />
-                <DeleteElements item={item} deleteElements={deleteElements} />
+                Task - {task.name}
+                <EditItem
+                  task={task}
+                  tasklist={tasklist}
+                  setActivity={setActivity}
+                  setTimeOfActivity={setTimeOfActivity}
+                  setRemainder={setRemainder}
+                  setToggleAddAndEdit={setToggleAddAndEdit}
+                  setUpdateItem={setUpdateItem}
+                />
+                <DeleteElements
+                  task={task}
+                  tasklist={tasklist}
+                  setTasklist={setTasklist}
+                />
               </h3>
-              <h4>Time : {item.time}</h4>
-              <h5>{item.remainder ? 'Remainder : On' : ' Remainder : Off'}</h5>
+              <h4>Time : {task.time}</h4>
+              <h5>{task.remainder ? 'Remainder : On' : ' Remainder : Off'}</h5>
             </div>
           );
         })}
