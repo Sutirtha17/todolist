@@ -1,18 +1,21 @@
-import React from 'react';
-const AddItem = ({
-  tasklist,
-  setTasklist,
-  activity,
-  setActivity,
-  timeOfActivity,
-  setTimeOfActivity,
-  remainder,
-  setRemainder,
-  toggleAddAndEdit,
-  setToggleAddAndEdit,
-  updateItem,
-  setUpdateItem,
-}) => {
+import React, { useContext } from 'react';
+import { TaskContext } from './TodoList';
+import { StateContext } from './Task';
+const AddItem = () => {
+  const { tasklist, setTasklist } = useContext(TaskContext);
+  const {
+    activity,
+    setActivity,
+    timeOfActivity,
+    setTimeOfActivity,
+    remainder,
+    setRemainder,
+    toggleAddAndEdit,
+    setToggleAddAndEdit,
+    updateItem,
+    setUpdateItem,
+  } = useContext(StateContext);
+
   const addElements = () => {
     if (!activity || !timeOfActivity) {
       alert('please enter a valid activity or time!');

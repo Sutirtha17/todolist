@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaEdit } from 'react-icons/fa';
+import { TaskContext } from './TodoList';
+import { StateContext } from './Task';
 
-const EditItem = ({
-  task,
-  tasklist,
-  setActivity,
-  setTimeOfActivity,
-  setRemainder,
-  setToggleAddAndEdit,
-  setUpdateItem,
-}) => {
+const EditItem = ({ task }) => {
+  const { tasklist } = useContext(TaskContext);
+  const {
+    setActivity,
+    setTimeOfActivity,
+    setRemainder,
+    setToggleAddAndEdit,
+    setUpdateItem,
+  } = useContext(StateContext);
+
   const editItem = (id) => {
     let taskToBeEdited = tasklist.find((task) => {
       return task.id === id;

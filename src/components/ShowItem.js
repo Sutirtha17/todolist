@@ -1,16 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import EditItem from './EditItem';
 import DeleteElements from './DeleteItem';
+import { TaskContext } from './TodoList';
 
-export const ShowItem = ({
-  tasklist,
-  setTasklist,
-  setActivity,
-  setTimeOfActivity,
-  setRemainder,
-  setToggleAddAndEdit,
-  setUpdateItem,
-}) => {
+const ShowItem = () => {
+  const { tasklist } = useContext(TaskContext);
   return (
     <>
       <div className='showItems'>
@@ -24,20 +18,8 @@ export const ShowItem = ({
             >
               <h3>
                 Task - {task.name}
-                <EditItem
-                  task={task}
-                  tasklist={tasklist}
-                  setActivity={setActivity}
-                  setTimeOfActivity={setTimeOfActivity}
-                  setRemainder={setRemainder}
-                  setToggleAddAndEdit={setToggleAddAndEdit}
-                  setUpdateItem={setUpdateItem}
-                />
-                <DeleteElements
-                  task={task}
-                  tasklist={tasklist}
-                  setTasklist={setTasklist}
-                />
+                <EditItem task={task} />
+                <DeleteElements task={task} />
               </h3>
               <h4>Time : {task.time}</h4>
               <h5>{task.remainder ? 'Remainder : On' : ' Remainder : Off'}</h5>
